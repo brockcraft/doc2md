@@ -1,12 +1,55 @@
 # doc2md
 
-## What this is (in plain English)
+## Why doc2md
 
-**doc2md** is a small command-line tool that turns a Word document (a `.docx` file) into a **Markdown** text file (a `.md` file). Markdown is easy to read, works well in editors and on GitHub, and is handy for notes, documentation, and moving content out of Word.
+AI tools work best with **clean, readable text**. A `.docx` may look simple in Word, but underneath it is a busy package: XML, styles, metadata, relationships, numbering rules, and embedded objects. That is fine for editing, but it is a poor fit when you need software to **read, summarize, search, chunk, compare, or transform** the actual content.
 
-It can also pull **images** out of the document and save them into an `images` folder next to your new `.md` file.
+**doc2md** exists to turn Word documents into **Markdown**—plain text that still carries what most AI workflows care about: headings, lists, paragraphs, links, tables, and basic structure. For many AI tasks, that makes the material easier to process and easier to reason about.
 
-You run it from **Terminal** (the command-line app on your Mac). You do not need to know programming to use it once it is set up.
+### Why Markdown helps with AI work
+
+- **Simpler than `.docx`.** You are not asking every tool to reverse-engineer Word’s internals; you get a straightforward text representation that is easier to inspect, store, diff, and pipe into other programs.
+- **Often more token-efficient.** Models are billed on the text they process. A solid Markdown export usually drops a lot of formatting noise, so more of the context window goes to real content.
+- **Better for chunking and retrieval.** If you use embeddings, RAG, vector search, or anything that splits a document into sections, Markdown makes boundaries clearer—headings and lists are explicit, so splits tend to line up with how humans think about the document.
+- **Easier to automate.** Plain text plays nicely with scripts, version control, `grep`, `diff`, and Unix-style pipelines—useful for repeated AI passes, prompt pipelines, and batch jobs.
+- **Easier for humans to sanity-check.** If you want to see roughly what an AI is “reading,” Markdown is far friendlier than raw XML or opaque binary formats.
+
+### Why `doc2md.py` specifically
+
+`doc2md.py` is a **small command-line wrapper** around [Pandoc](https://pandoc.org/) so you can convert Word to AI-friendly Markdown without memorizing Pandoc flags.
+
+It is a good fit when you want to:
+
+- prepare documents for summarization or rewriting  
+- build a corpus for search or retrieval  
+- trim noise before sending content to an LLM  
+- inspect document content as plain text  
+- produce a cleaner intermediate format for automation  
+
+This project is **not** trying to replace Word. It gives you a **working format** tuned for AI-related tasks.
+
+### A practical way to think about it
+
+Use the **`.docx`** as the file people edit, share, and print.  
+Use the **`.md`** as the file systems read, chunk, index, and run agents against.
+
+That split is often the sweet spot: Word for authoring and final layout, Markdown for analysis, transformation, and agent workflows.
+
+### Important limitation
+
+Markdown cannot perfectly represent **every** Word feature. Complex tables, comments, tracked changes, text boxes, floating objects, and layout-heavy pieces may not convert cleanly. When exact formatting or Word-only features matter, keep the original `.docx` as the source of truth.
+
+For many AI-oriented jobs, **clear structure beats pixel-perfect fidelity**. That is the gap `doc2md.py` is meant to fill.
+
+---
+
+## What this tool is (in plain English)
+
+This repo ships **`doc2md.py`**, a script that turns a Word file (`.docx`) into a Markdown file (`.md`). Markdown is also easy to read in editors, diff in Git, and publish on sites like GitHub.
+
+The script pulls **images** out of the document and saves them in an **`images`** folder next to the new `.md` file.
+
+You run it from **Terminal** on your Mac. You do not need to know how to program—only how to follow the setup steps below.
 
 ---
 
