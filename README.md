@@ -204,6 +204,18 @@ Copy the line it prints (for example `/Users/yourname/Documents/Code/Scripts/doc
 
 ---
 
+## License
+
+**doc2md** (this repository, including `doc2md.py`) is licensed under the **GNU General Public License v2.0 or later** (`GPL-2.0-or-later`). The full license text is in the [`LICENSE`](LICENSE) file in this repo.
+
+That choice matches how **[Pandoc](https://pandoc.org/)** is distributed: Pandoc itself is under the **GPL v2** (and, like other GNU projects, may be used under **GPL v2 or any later version** at your option). This script invokes Pandoc as a separate program on your machine.
+
+**[pypandoc](https://github.com/JessicaTegner/pypandoc)** (the Python library used here) is under the **MIT License**, which is **compatible** with GPLv2+ when combined in this way. pypandoc’s license applies to the pypandoc source you get from PyPI; it does not change the GPL terms for this project’s own code.
+
+This is not legal advice. If you redistribute combined works or have compliance questions, consult a lawyer or your organization’s open-source policy.
+
+---
+
 ## Technical note (for the curious)
 
 Conversion is done with [Pandoc](https://pandoc.org/). This project talks to Pandoc through [pypandoc](https://github.com/JessicaTegner/pypandoc).
