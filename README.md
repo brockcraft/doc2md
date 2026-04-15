@@ -6,7 +6,7 @@ This is a **command-line tool** that creates a **Markdown** (`.md`) file from a 
 doc2md.py yourwordfile.docx
 ```
 
-That produces `yourwordfile.md` next to `yourwordfile.docx`. (If you set up the optional `doc2md` symlink, you can run `doc2md` instead.) Simple!
+That produces `yourwordfile.md` next to `yourwordfile.docx`. You can also run `doc2md` (same script) if your `PATH` includes the folder where that shortcut lives. Simple!
 
 ---
 
@@ -82,7 +82,17 @@ You run it from **Terminal** on your Mac. You do not need to know how to program
 
 4. **This project’s folder** on your computer — for example after you clone or download the repo, you might have:
 
-   `doc2md.py` sitting in a folder named `doc2md`.
+   `doc2md.py` sitting in a folder named `doc2md-cli` (this repository’s root when you clone it).
+
+### Clone without the `permission denied: doc2md` trap
+
+The default clone folder name matches the GitHub repo (`doc2md`). If you clone **into** a directory that is already on your `PATH` (for example `…/Scripts`), that creates a **subfolder** named `doc2md`, and the shell may try to run that **folder** when you type `doc2md` → `permission denied`.
+
+Clone into a different folder name (recommended here: `doc2md-cli`):
+
+```bash
+git clone https://github.com/brockcraft/doc2md.git doc2md-cli
+```
 
 ---
 
@@ -91,10 +101,10 @@ You run it from **Terminal** on your Mac. You do not need to know how to program
 In Terminal, **go into the folder** that contains `doc2md.py` and `requirements.txt`:
 
 ```bash
-cd /path/to/doc2md
+cd /path/to/doc2md-cli
 ```
 
-Replace `/path/to/doc2md` with your real folder path (see “Find your folder path” below).
+Replace `/path/to/doc2md-cli` with your real folder path (see “Find your folder path” below).
 
 Then install the Python helper library:
 
@@ -142,7 +152,7 @@ Right now, your Mac only knows how to run commands that live in certain **specia
 
 You want to be able to open Terminal, type **`doc2md.py`**, and have it work **no matter which folder you are in**. To do that, add the folder that **contains** `doc2md.py` to your `PATH`, once.
 
-### Step 1: Find the full path to the `doc2md` folder
+### Step 1: Find the full path to the `doc2md-cli` folder
 
 **Option A — from Terminal (after you `cd` into the folder):**
 
@@ -150,7 +160,7 @@ You want to be able to open Terminal, type **`doc2md.py`**, and have it work **n
 pwd
 ```
 
-Copy the line it prints (for example `/Users/yourname/Documents/Code/Scripts/doc2md`). That is the path you need.
+Copy the line it prints (for example `/Users/yourname/Documents/Code/Scripts/doc2md-cli`). That is the path you need.
 
 **Option B — from Finder:**
 
@@ -168,17 +178,19 @@ Copy the line it prints (for example `/Users/yourname/Documents/Code/Scripts/doc
    ```
 
 3. Use the arrow keys to go to the **bottom** of the file.
-4. Paste **this line**, but replace `/path/to/doc2md` with the **exact** path you copied (no quotes inside the path unless your path has spaces — if it has spaces, keep the double quotes as shown):
+4. Paste **this line**, but replace `/path/to/doc2md-cli` with the **exact** path you copied (no quotes inside the path unless your path has spaces — if it has spaces, keep the double quotes as shown):
 
    ```bash
-   export PATH="/path/to/doc2md:$PATH"
+   export PATH="/path/to/doc2md-cli:$PATH"
    ```
 
-   Example if your project lives in your home folder:
+   Example if your project lives under your home `Documents` tree:
 
    ```bash
-   export PATH="$HOME/Documents/Code/Scripts/doc2md:$PATH"
+   export PATH="$HOME/Documents/Code/Scripts/doc2md-cli:$PATH"
    ```
+
+   If you keep this repo inside a parent folder that is **already** on your `PATH` (for example `…/Scripts`), you can instead add **symlinks** there named `doc2md` and `doc2md.py` that point at `doc2md-cli/doc2md.py`, so both command names work without listing `doc2md-cli` separately. This layout avoids a common macOS issue: a **directory** named `doc2md` on `PATH` is not runnable and can produce `permission denied` if the shell picks it as the `doc2md` command.
 
 5. In nano: press **Control+O**, Enter, then **Control+X** to save and exit.
 
@@ -208,9 +220,10 @@ Copy the line it prints (for example `/Users/yourname/Documents/Code/Scripts/doc
 | What you see | What to try |
 |--------------|-------------|
 | `command not found: doc2md.py` | Run `source ~/.zshrc`, open a new Terminal, run `which doc2md.py`. If still empty, fix the path in `~/.zshrc` (typo or wrong folder). |
+| `zsh: permission denied: doc2md` | Often means the shell found a **directory** named `doc2md` on your `PATH` (not the script). Use `doc2md.py`, or rename that folder to `doc2md-cli` and use a `doc2md` **symlink** to `doc2md-cli/doc2md.py` as in this repo’s layout. |
 | `not a file or does not exist` | The **Word file path** is wrong. `cd` to the folder with the `.docx` or use the full path: `doc2md.py /full/path/to/file.docx`. |
 | Errors about **pandoc** | Install Pandoc (`brew install pandoc`) and run `pandoc --version` to confirm it works. |
-| Errors about **pypandoc** | Run `python3 -m pip install -r requirements.txt` again from the `doc2md` project folder. |
+| Errors about **pypandoc** | Run `python3 -m pip install -r requirements.txt` again from the `doc2md-cli` project folder. |
 
 ---
 
