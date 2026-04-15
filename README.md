@@ -1,5 +1,15 @@
 # doc2md
 
+This is a **command-line tool** that creates a **Markdown** (`.md`) file from a **Word** (`.docx`) file. You run it in **Terminal** from the folder that contains your document (or use full paths). By default it writes a Markdown file with the **same name** as the Word file, in the **same folder**—for example:
+
+```bash
+doc2md.py yourwordfile.docx
+```
+
+That produces `yourwordfile.md` next to `yourwordfile.docx`. (If you set up the optional `doc2md` symlink, you can run `doc2md` instead.) Simple!
+
+---
+
 ## Why doc2md
 
 AI tools work best with **clean, readable text**. A `.docx` may look simple in Word, but underneath it is a busy package: XML, styles, metadata, relationships, numbering rules, and embedded objects. That is fine for editing, but it is a poor fit when you need software to **read, summarize, search, chunk, compare, or transform** the actual content.
