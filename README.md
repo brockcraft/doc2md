@@ -213,6 +213,20 @@ Copy the line it prints (for example `/Users/yourname/Documents/Code/Scripts/doc
 - **Good:** `doc2md.py MyFile.docx` — the shell finds the script because of `PATH`.
 - **Avoid:** `python3 doc2md.py` from a random folder — Python looks for `doc2md.py` **only in the folder you are standing in**, not in `PATH`, so you get “can’t open file” errors unless you pass the full path to the script.
 
+### Optional: every terminal and shell (macOS)
+
+`~/.zshrc` only affects **zsh**. To make **`doc2md`** and **`doc2md.py`** available in **bash**, minimal environments, and some GUI-launched tools, you can put symlinks in a directory that macOS already puts early on `PATH` (usually **`/usr/local/bin`**):
+
+```bash
+CLI="/full/path/to/doc2md-cli/doc2md.py"   # set this to your real script path (pwd inside the clone)
+ln -sf "$CLI" /usr/local/bin/doc2md.py
+ln -sf "$CLI" /usr/local/bin/doc2md
+```
+
+Replace `/full/path/to/doc2md-cli/doc2md.py` with the absolute path to **`doc2md.py`** in your clone (for example `$HOME/Documents/Code/Scripts/doc2md-cli/doc2md.py`). If `ln` reports “Permission denied”, run the same commands with `sudo`, or use a directory your user owns that is already on `PATH`.
+
+If you later **move the repo**, run the same `ln -sf` lines again with the new path.
+
 ---
 
 ## Quick checks if something fails
